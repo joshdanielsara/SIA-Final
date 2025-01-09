@@ -1,35 +1,23 @@
 name: Deploy to GitHub Pages
 
-# Trigger the workflow on push to the 'main' branch
 on:
   push:
     branches:
       - main
 
-# Define the job
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Node.js (Optional, only if you want to run a build process)
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: '14'
-      
-      # Step 3: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages  # Branch to deploy to
-          folder: .          # Folder to deploy (use '.' for the root directory)
-          clean: true        # Optional: Clean the branch before deploying
-
-      # Optional: Run tests or build tasks before deploying (if you need it in the future)
-      # - name: Run tests
-      #   run: npm test
+          branch: gh-pages
+          folder: .
+          clean: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}  # Use your custom token here
